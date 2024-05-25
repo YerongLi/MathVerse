@@ -32,6 +32,7 @@ def match_answer(inst, api_key, quick_match=False):
     # general extraction
     try:
         full_prompt = create_test_prompt(demo_prompt_score, inst)
+        print(full_prompt)
         extraction = get_chat_response(full_prompt, api_key)
         return extraction.replace("Judgement:", "").strip()
     except Exception as e:
@@ -81,9 +82,13 @@ if __name__ == '__main__':
     score_dict = defaultdict(lambda: defaultdict(list))
     score_version_dict = defaultdict(list)
     # tqdm, enumerate results
+    print(len(results))
     for i, inst in enumerate(tqdm(results)):
         save_inst = save_results[i] if i < len(save_results) else copy.deepcopy(inst)
+        full_prompt = create_test_prompt(demo_prompt_score, inst)
+        print('\n  ======  \n ', full_prompt, '\n  ======  \n ')
         if args.cache and 'judgement' in save_inst:
+            
             pass
         else:
             judgement = match_answer(save_inst, args.api_key, args.quick_match)
@@ -97,7 +102,7 @@ if __name__ == '__main__':
 
             save_results.append(save_inst)
 
-        score_dict[save_inst['category']['subject']][save_inst['category']['subfield']].append(save_inst['judgement'])
+        # score_dict[save_inst['category']['subject']][save_inst['category']['subfield']].append(save_inst['judgement'])
         score_version_dict[save_inst['problem_version']].append(save_inst['judgement'])
 
         if i % args.save_every == 0 or i == len(results)-1:
@@ -118,7 +123,8 @@ if __name__ == '__main__':
         print(f"{subject} Acc: {(subject_right_cnt/subject_total_cnt):.3f}")
         total_cnt += subject_total_cnt
         right_cnt += subject_right_cnt
-    print(f"Total Acc: {(right_cnt/total_cnt):.3f}")
+    # print(f"Total Acc: {(right_cnt/total_cnt):.3f}")
+    print(f"Total Acc: ({right_cnt}/ {total_cnt})")
 
     # version level acc
     total_cnt, right_cnt = 0, 0
