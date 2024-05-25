@@ -66,7 +66,7 @@ if __name__ == '__main__':
     result_file = args.model_output_file
     print(f"Reading {result_file}...")
     results = read_json(result_file)
-
+    print(args.save_file)
     os.makedirs(os.path.dirname(args.save_file), exist_ok=True)
     if os.path.exists(args.save_file):
         save_results = json.load(open(args.save_file))

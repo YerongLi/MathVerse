@@ -4,7 +4,7 @@ import time
 import pickle
 import openai
 import re
-from openai import OpenAI
+# from openai import OpenAI
 
 
 def create_dir(output_dir):
