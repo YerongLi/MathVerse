@@ -32,7 +32,7 @@ for entry in tqdm(data):
     entry["answer"] = response
 
 # Save the updated data to a new JSON file
-with open('data/testmini_ans.json', 'w') as file:
+with open('data/testmini_text_ans.json', 'w') as file:
     json.dump(data, file, indent=4)
 
 print("Responses saved to data/testmini_test_ans.json")
