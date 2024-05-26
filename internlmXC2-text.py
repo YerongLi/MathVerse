@@ -15,7 +15,7 @@ with open('data/testmini.json', 'r') as file:
     data = json.load(file)
 
 # Iterate through each dictionary in the list
-for entry in tqdm(data):
+for entry in tqdm(data[:3]):
     # Extract the relevant fields from each entry
     query_cot = entry["query_cot"]
     image_path = entry["image"]
@@ -29,11 +29,11 @@ for entry in tqdm(data):
         response, _ = model.chat(tokenizer, query=query, image=image, history=[], do_sample=False)
 
     # Add the response to the entry
-    entry["answer"] = response
+    entry["model_answer"] = response
 
 # Save the updated data to a new JSON file
 with open('data/testmini_text_ans.json', 'w') as file:
     json.dump(data, file, indent=4)
 
-print("Responses saved to data/testmini_test_ans.json")
+print("Responses saved to data/testmini_text_ans.json")
 

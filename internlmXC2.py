@@ -31,7 +31,7 @@ for entry in tqdm(data):
         response, _ = model.chat(tokenizer, query=query, image=image, history=[], do_sample=False)
 
     # Add the response to the entry
-    entry["answer"] = response
+    entry["model_answer"] = response
 
 # Save the updated data to a new JSON file
 with open('data/testmini_ans.json', 'w') as file:
