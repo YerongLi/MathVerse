@@ -32,7 +32,6 @@ def match_answer(inst, api_key, quick_match=False):
     # general extraction
     try:
         full_prompt = create_test_prompt(demo_prompt_score, inst)
-        print(full_prompt)
         extraction = get_chat_response(full_prompt, api_key)
         return extraction.replace("Judgement:", "").strip()
     except Exception as e:
@@ -83,10 +82,11 @@ if __name__ == '__main__':
     score_version_dict = defaultdict(list)
     # tqdm, enumerate results
     print(len(results))
+    # exit()
     for i, inst in enumerate(tqdm(results)):
         save_inst = save_results[i] if i < len(save_results) else copy.deepcopy(inst)
-        full_prompt = create_test_prompt(demo_prompt_score, inst)
-        print('\n  ======  \n ', full_prompt, '\n  ======  \n ')
+        # full_prompt = create_test_prompt(demo_prompt_score, inst)
+        # print('\n  ======  \n ', full_prompt, '\n  ======  \n ')
         if args.cache and 'judgement' in save_inst:
             
             pass
@@ -112,6 +112,7 @@ if __name__ == '__main__':
     
     # subject level acc
     total_cnt, right_cnt = 0, 0
+    print(score_dict.keys())
     for subject in score_dict:
         subject_total_cnt, subject_right_cnt = 0, 0
         for subfield in score_dict[subject]:
